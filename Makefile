@@ -1,3 +1,8 @@
+.PHONY: deploy test
+
 deploy:
 	npm run build
 	firebase deploy
+
+test:
+	npm run test
