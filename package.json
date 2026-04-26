@@ -12,6 +12,8 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.35.0",
+    "@emotion/react": "^11.14.0",
     "dotenv": "^17.4.2",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
