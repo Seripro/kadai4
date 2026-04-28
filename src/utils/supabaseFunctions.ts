@@ -23,3 +23,7 @@ export const getSkillIdsByUserId = async (UserId: string) => {
   if (error) throw error;
   return data.map((item) => item.skill_id);
 };
+
+export const getSkillsBySkillIds = async (SkillIds: number[]) => {
+  return await supabase.from("skills").select("*").in("id", SkillIds);
+};
