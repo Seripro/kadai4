@@ -1,6 +1,15 @@
 import type { Skill } from "@/types/skillTypes";
 import type { User } from "@/types/userTypes";
 import { getSkillsByUserId, getUserById } from "@/utils/supabaseFunctions";
+import {
+  Box,
+  Heading,
+  Link,
+  Text,
+  Flex,
+  Badge,
+  Button,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -44,28 +53,75 @@ export const UserDetail = () => {
   if (!user) return <div>not found</div>;
 
   return (
-    <>
-      <div>名前：{user.name}</div>
-      <div>自己紹介：{user.description}</div>
-      <div>スキル：</div>
-      {skills.map((skill) => (
-        <div key={skill.id}>{skill.name}</div>
-      ))}
-      {user.github_id ? (
-        <a href={user.github_id} target="_blank">
-          GitHub
-        </a>
-      ) : null}
-      {user.qiita_id ? (
-        <a href={user.qiita_id} target="_blank">
-          Qiita
-        </a>
-      ) : null}
-      {user.x_id ? (
-        <a href={user.x_id} target="_blank">
-          X
-        </a>
-      ) : null}
-    </>
+    <Flex minH="100vh" align="center" justify="center" p={4} bg="gray.50">
+      <Box
+        w="full"
+        maxW="sm"
+        bg="white"
+        borderRadius="2xl"
+        boxShadow="lg"
+        p={8}
+      >
+        <Heading as="h1" size="lg" mb={2} textAlign="left">
+          {user.name}
+        </Heading>
+        <Text color="gray.600" mb={6} textAlign="left">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: user.description,
+            }}
+          />
+        </Text>
+
+        <Box mb={6}>
+          <Text fontSize="sm" color="gray.500" mb={2} textAlign="left">
+            スキル
+          </Text>
+          <Flex wrap="wrap" gap={2}>
+            {skills.map((skill) => (
+              <Badge key={skill.id} colorScheme="blue">
+                {skill.name}
+              </Badge>
+            ))}
+          </Flex>
+        </Box>
+
+        <Flex gap={3} justify="center">
+          {user.github_id ? (
+            <Link
+              href={user.github_id}
+              target="_blank"
+              _hover={{ textDecoration: "none" }}
+            >
+              <Button size="sm" variant="outline">
+                GitHub
+              </Button>
+            </Link>
+          ) : null}
+          {user.qiita_id ? (
+            <Link
+              href={user.qiita_id}
+              target="_blank"
+              _hover={{ textDecoration: "none" }}
+            >
+              <Button size="sm" variant="outline">
+                Qiita
+              </Button>
+            </Link>
+          ) : null}
+          {user.x_id ? (
+            <Link
+              href={user.x_id}
+              target="_blank"
+              _hover={{ textDecoration: "none" }}
+            >
+              <Button size="sm" variant="outline">
+                X
+              </Button>
+            </Link>
+          ) : null}
+        </Flex>
+      </Box>
+    </Flex>
   );
 };
