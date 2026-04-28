@@ -14,3 +14,12 @@ export const getUserById = async (UserId: string) => {
   if (error) throw error;
   return data;
 };
+
+export const getSkillIdsByUserId = async (UserId: string) => {
+  const { data, error } = await supabase
+    .from("user_skill")
+    .select("*")
+    .eq("user_id", UserId);
+  if (error) throw error;
+  return data.map((item) => item.skill_id);
+};
