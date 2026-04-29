@@ -1,5 +1,5 @@
 import type { formType } from "@/types/formType";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import ReactSelect from "react-select";
 import {
   Box,
@@ -47,7 +47,7 @@ export const Register = () => {
     }
   };
 
-  const onSubmit = (data: formType) => {
+  const onSubmit: SubmitHandler<formType> = (data) => {
     console.log(data);
     const user = {
       user_id: data.user_id,
