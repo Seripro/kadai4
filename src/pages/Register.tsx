@@ -1,10 +1,23 @@
 import type { formType } from "@/types/formType";
 import { Controller, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
-import { Box, Button, Input, Stack, Heading, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Input,
+  Stack,
+  Heading,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
 
 export const Register = () => {
-  const { register, handleSubmit, control } = useForm<formType>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<formType>();
   const skills = [
     { id: 1, name: "React" },
     { id: 2, name: "TypeScript" },
@@ -14,7 +27,6 @@ export const Register = () => {
   const onSubmit = (data: formType) => {
     console.log(data);
   };
-
   return (
     <Flex minH="100vh" align="center" justify="center" p={4} bg="gray.50">
       <Box
@@ -44,7 +56,21 @@ export const Register = () => {
             >
               好きな英単語：
             </label>
-            <Input id="user_id" {...register("user_id")} />
+            <Input
+              id="user_id"
+              {...register("user_id", {
+                required: "必須項目です",
+                pattern: {
+                  value: /^[A-Za-z]+$/,
+                  message: "アルファベットを入力して下さい",
+                },
+              })}
+            />
+            {errors.user_id && (
+              <Text color="red.500" fontSize="sm" style={{ textAlign: "left" }}>
+                {errors.user_id?.message}
+              </Text>
+            )}
           </Box>
 
           <Box>
@@ -60,7 +86,12 @@ export const Register = () => {
             >
               名前：
             </label>
-            <Input id="name" {...register("name")} />
+            <Input id="name" {...register("name", { required: true })} />
+            {errors.name && (
+              <Text color="red.500" fontSize="sm" style={{ textAlign: "left" }}>
+                必須項目です
+              </Text>
+            )}
           </Box>
 
           <Box>
@@ -76,7 +107,15 @@ export const Register = () => {
             >
               自己紹介：
             </label>
-            <Input id="description" {...register("description")} />
+            <Input
+              id="description"
+              {...register("description", { required: true })}
+            />
+            {errors.description && (
+              <Text color="red.500" fontSize="sm" style={{ textAlign: "left" }}>
+                必須項目です
+              </Text>
+            )}
           </Box>
 
           <Box>
@@ -95,6 +134,7 @@ export const Register = () => {
             <Controller
               name="skill"
               control={control}
+              rules={{ required: "必須項目です" }}
               render={({ field }) => (
                 <ReactSelect
                   inputId="skill"
@@ -112,6 +152,11 @@ export const Register = () => {
                 />
               )}
             />
+            {errors.skill && (
+              <Text color="red.500" fontSize="sm" style={{ textAlign: "left" }}>
+                必須項目です
+              </Text>
+            )}
           </Box>
 
           <Box>
