@@ -1,3 +1,4 @@
+import type { User } from "@/types/userTypes";
 import { supabase } from "./supabase";
 
 export const getAllUsers = async () => {
@@ -49,4 +50,9 @@ export const getSkillsByUserId = async (UserId: string) => {
   const { data, error } = await getSkillsBySkillIds(skillIds);
   if (error) throw error;
   return data;
+};
+
+export const insertUser = async (user: User) => {
+  const { error } = await supabase.from("users").insert(user);
+  if (error) throw error;
 };
