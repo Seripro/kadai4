@@ -79,6 +79,7 @@ export const Register = () => {
         boxShadow="lg"
         p={8}
       >
+        <Button onClick={() => navigate("/")}>戻る</Button>
         <Heading as="h1" size="lg" mb={6} textAlign="left">
           名刺新規登録
         </Heading>
