@@ -1,5 +1,13 @@
 import { getAllUsers } from "@/utils/supabaseFunctions";
-import { Button, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Input,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -33,18 +41,55 @@ export const Home = () => {
     getAllId();
   }, []);
   return (
-    <>
-      <h1>デジタル名刺アプリ</h1>
-      <Input onChange={handleChange} />
-      {error && (
-        <Text color="red.500" fontSize="sm" style={{ textAlign: "left" }}>
-          {error}
-        </Text>
-      )}
-      <Button onClick={handleClick}>表示する</Button>
+    <Flex
+      minH="100vh"
+      direction="column"
+      align="center"
+      justify="center"
+      gap={4}
+      p={4}
+      bg="gray.50"
+    >
+      <Box
+        w="full"
+        maxW="sm"
+        bg="white"
+        borderRadius="2xl"
+        boxShadow="lg"
+        p={8}
+      >
+        <Heading as="h1" size="lg" mb={6} textAlign="center">
+          デジタル名刺アプリ
+        </Heading>
+        <VStack gap={4} align="stretch">
+          <Input
+            placeholder="ユーザーIDを入力"
+            onChange={handleChange}
+            value={id}
+          />
+          {error && (
+            <Text color="red.500" fontSize="sm">
+              {error}
+            </Text>
+          )}
+          <Flex gap={3} justify="center" wrap="wrap">
+            <Button
+              onClick={handleClick}
+              type="submit"
+              colorScheme="blue"
+              w="full"
+              mt={4}
+              variant="surface"
+              colorPalette="green"
+            >
+              表示する
+            </Button>
+          </Flex>
+        </VStack>
+      </Box>
       <Button onClick={() => navigate("/cards/register")} variant="ghost">
         新規登録
       </Button>
-    </>
+    </Flex>
   );
 };
