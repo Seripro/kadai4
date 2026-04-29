@@ -10,6 +10,8 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { insertUser } from "@/utils/supabaseFunctions";
+import type { User } from "@/types/userTypes";
 
 export const Register = () => {
   const {
@@ -24,8 +26,25 @@ export const Register = () => {
     { id: 3, name: "GitHub" },
   ];
 
+  const createUser = async (user: User) => {
+    try {
+      await insertUser(user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onSubmit = (data: formType) => {
     console.log(data);
+    const user = {
+      user_id: data.user_id,
+      name: data.name,
+      description: data.description,
+      github_id: data.github_id,
+      qiita_id: data.qiita_id,
+      x_id: data.x_id,
+    };
+    createUser(user);
   };
   return (
     <Flex minH="100vh" align="center" justify="center" p={4} bg="gray.50">
