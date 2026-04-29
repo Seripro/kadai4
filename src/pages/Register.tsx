@@ -47,7 +47,7 @@ export const Register = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<formType> = (data) => {
+  const onSubmit: SubmitHandler<formType> = async (data) => {
     console.log(data);
     const user = {
       user_id: data.user_id,
@@ -64,7 +64,7 @@ export const Register = () => {
       };
       createUserSkill(userSkill);
     });
-    createUser(user);
+    await createUser(user);
     navigate("/");
   };
   return (
