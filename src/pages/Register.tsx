@@ -10,8 +10,9 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { insertUser } from "@/utils/supabaseFunctions";
+import { insertUser, insertUserSkill } from "@/utils/supabaseFunctions";
 import type { User } from "@/types/userTypes";
+import type { UserSkill } from "@/types/userSkillType";
 
 export const Register = () => {
   const {
@@ -24,11 +25,21 @@ export const Register = () => {
     { id: 1, name: "React" },
     { id: 2, name: "TypeScript" },
     { id: 3, name: "GitHub" },
+    { id: 4, name: "Python" },
+    { id: 5, name: "HTML" },
   ];
 
   const createUser = async (user: User) => {
     try {
       await insertUser(user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const createUserSkill = async (userSkill: UserSkill) => {
+    try {
+      await insertUserSkill(userSkill);
     } catch (e) {
       console.log(e);
     }
@@ -44,6 +55,14 @@ export const Register = () => {
       qiita_id: data.qiita_id,
       x_id: data.x_id,
     };
+    data.skill.map((item) => {
+      const userSkill = {
+        user_id: data.user_id,
+        skill_id: item,
+      };
+      createUserSkill(userSkill);
+    });
+
     createUser(user);
   };
   return (
