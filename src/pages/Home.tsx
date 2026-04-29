@@ -42,6 +42,9 @@ export const Home = () => {
         </Text>
       )}
       <Button onClick={handleClick}>表示する</Button>
+      <Button onClick={() => navigate("/cards/register")} variant="ghost">
+        新規登録
+      </Button>
     </>
   );
 };
