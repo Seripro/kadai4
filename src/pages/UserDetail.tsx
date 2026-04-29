@@ -54,7 +54,15 @@ export const UserDetail = () => {
   if (!user) return <div>not found</div>;
 
   return (
-    <Flex minH="100vh" align="center" justify="center" p={4} bg="gray.50">
+    <Flex
+      minH="100vh"
+      direction="column"
+      align="center"
+      justify="center"
+      gap={4}
+      p={4}
+      bg="gray.50"
+    >
       <Box
         w="full"
         maxW="sm"
@@ -63,7 +71,13 @@ export const UserDetail = () => {
         boxShadow="lg"
         p={8}
       >
-        <Heading as="h1" size="lg" mb={2} textAlign="left">
+        <Heading
+          as="h1"
+          size="lg"
+          mb={2}
+          textAlign="left"
+          padding={"10px 10px"}
+        >
           {user.name}
         </Heading>
         <Text color="gray.600" mb={6} textAlign="left">
@@ -87,7 +101,7 @@ export const UserDetail = () => {
           </Flex>
         </Box>
 
-        <Flex gap={3} justify="center">
+        <Flex gap={3} justify="center" wrap="wrap">
           {user.github_id ? (
             <Link
               href={user.github_id}
@@ -123,7 +137,9 @@ export const UserDetail = () => {
           ) : null}
         </Flex>
       </Box>
-      <Button onClick={() => navigate("/")}>ホームに戻る</Button>
+      <Button onClick={() => navigate("/")} variant="ghost">
+        ホームに戻る
+      </Button>
     </Flex>
   );
 };
