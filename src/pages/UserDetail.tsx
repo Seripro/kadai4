@@ -11,13 +11,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const UserDetail = () => {
   const [user, setUser] = useState<User>();
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
@@ -122,6 +123,7 @@ export const UserDetail = () => {
           ) : null}
         </Flex>
       </Box>
+      <Button onClick={() => navigate("/")}>ホームに戻る</Button>
     </Flex>
   );
 };
