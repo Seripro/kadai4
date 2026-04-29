@@ -13,6 +13,7 @@ import {
 import { insertUser, insertUserSkill } from "@/utils/supabaseFunctions";
 import type { User } from "@/types/userTypes";
 import type { UserSkill } from "@/types/userSkillType";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const {
@@ -21,6 +22,7 @@ export const Register = () => {
     control,
     formState: { errors },
   } = useForm<formType>();
+  const navigate = useNavigate();
   const skills = [
     { id: 1, name: "React" },
     { id: 2, name: "TypeScript" },
@@ -62,8 +64,8 @@ export const Register = () => {
       };
       createUserSkill(userSkill);
     });
-
     createUser(user);
+    navigate("/");
   };
   return (
     <Flex minH="100vh" align="center" justify="center" p={4} bg="gray.50">
