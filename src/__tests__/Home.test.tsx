@@ -65,4 +65,11 @@ describe("Home", () => {
     const error = await screen.findByText("そのIDは存在しません");
     expect(error).toBeInTheDocument();
   });
+  it("新規登録を押すと登録画面に遷移する", async () => {
+    const button = await screen.findByText("新規登録");
+    fireEvent.click(button);
+    await waitFor(() =>
+      expect(mockedNavigator).toHaveBeenCalledWith("/cards/register"),
+    );
+  });
 });
