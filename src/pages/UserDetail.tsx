@@ -1,6 +1,6 @@
-import type { Skill } from "@/types/skillTypes";
-import type { User } from "@/types/userTypes";
-import { getSkillsByUserId, getUserById } from "@/utils/supabaseFunctions";
+import type { Skill } from "../types/skillTypes";
+import type { User } from "../types/userTypes";
+import { getSkillsByUserId, getUserById } from "../utils/supabaseFunctions";
 import {
   Box,
   Heading,
