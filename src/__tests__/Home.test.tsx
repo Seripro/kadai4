@@ -57,4 +57,12 @@ describe("Home", () => {
     const error = await screen.findByText("IDを入力して下さい");
     expect(error).toBeInTheDocument();
   });
+  it("存在しないIDを入力し、ボタンを押すとエラーになる", async () => {
+    const input = await screen.findByRole("textbox");
+    fireEvent.change(input, { target: { value: "banana" } });
+    const button = await screen.findByText("表示する");
+    fireEvent.click(button);
+    const error = await screen.findByText("そのIDは存在しません");
+    expect(error).toBeInTheDocument();
+  });
 });
