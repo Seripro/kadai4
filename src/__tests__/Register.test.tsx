@@ -116,4 +116,26 @@ describe("Register", () => {
     const error = await screen.findByText("必須項目です");
     expect(error).toBeInTheDocument();
   });
+  it("好きな英単語がアルファベットでないとエラーになる", async () => {
+    const user = userEvent.setup();
+    const user_idInput = await screen.findByLabelText("好きな英単語：");
+    const nameInput = await screen.findByLabelText("名前：");
+    const descriptionInput = await screen.findByLabelText("自己紹介：");
+    const skillSelect = await screen.findByLabelText("好きな技術：");
+
+    fireEvent.change(user_idInput, { target: { value: 123 } });
+    fireEvent.change(nameInput, { target: { value: mockUser.name } });
+    fireEvent.change(descriptionInput, {
+      target: { value: mockUser.description },
+    });
+    await user.click(skillSelect);
+    await user.keyboard("[ArrowDown][Enter]");
+    await user.click(skillSelect);
+    await user.keyboard("[ArrowDown][ArrowDown][Enter]");
+
+    const button = await screen.findByText("登録");
+    await user.click(button);
+    const error = await screen.findByText("アルファベットを入力して下さい");
+    expect(error).toBeInTheDocument();
+  });
 });
