@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { getSkillsByUserId, getUserById } from "../utils/supabaseFunctions";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
@@ -8,6 +8,12 @@ import { Provider } from "../components/ui/provider";
 jest.mock("../utils/supabaseFunctions", () => ({
   getUserById: jest.fn(),
   getSkillsByUserId: jest.fn(),
+}));
+
+const mockedNavigator = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedNavigator,
 }));
 
 const mockUser = {
@@ -64,5 +70,10 @@ describe("UserDetail", () => {
   it("Xのアイコンが表示されている", async () => {
     const XIcon = await screen.findByAltText("Xのアイコン");
     expect(XIcon).toBeInTheDocument();
+  });
+  it("戻るボタンを押すとホームに遷移する", async () => {
+    const button = await screen.findByRole("button", { name: "ホームに戻る" });
+    fireEvent.click(button);
+    expect(mockedNavigator).toHaveBeenCalledWith("/");
   });
 });
