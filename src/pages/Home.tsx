@@ -1,4 +1,4 @@
-import { getAllUsers } from "@/utils/supabaseFunctions";
+import { getAllUsers } from "../utils/supabaseFunctions";
 import {
   Box,
   Button,
