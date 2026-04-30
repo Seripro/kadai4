@@ -61,4 +61,8 @@ describe("UserDetail", () => {
     const QiitaIcon = await screen.findByAltText("Qiitaのアイコン");
     expect(QiitaIcon).toBeInTheDocument();
   });
+  it("Xのアイコンが表示されている", async () => {
+    const XIcon = await screen.findByAltText("Xのアイコン");
+    expect(XIcon).toBeInTheDocument();
+  });
 });
