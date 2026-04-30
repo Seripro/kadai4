@@ -40,4 +40,20 @@ describe("UserDetail", () => {
     const name = await screen.findByText("seri");
     expect(name).toBeInTheDocument();
   });
+  it("自己紹介が表示されている", async () => {
+    (getUserById as jest.Mock).mockResolvedValueOnce(mockUser);
+    (getSkillsByUserId as jest.Mock).mockResolvedValueOnce(mockSkills);
+
+    render(
+      <Provider>
+        <MemoryRouter initialEntries={["/cards/apple"]}>
+          <Routes>
+            <Route path="/cards/:id" element={<UserDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>,
+    );
+    const description = await screen.findByText("よろしくお願いします！");
+    expect(description).toBeInTheDocument();
+  });
 });
