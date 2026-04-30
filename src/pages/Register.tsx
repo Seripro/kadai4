@@ -1,4 +1,4 @@
-import type { formType } from "@/types/formType";
+import type { formType } from "../types/formType";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import ReactSelect from "react-select";
 import {
@@ -10,9 +10,9 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { insertUser, insertUserSkill } from "@/utils/supabaseFunctions";
-import type { User } from "@/types/userTypes";
-import type { UserSkill } from "@/types/userSkillType";
+import { insertUser, insertUserSkill } from "../utils/supabaseFunctions";
+import type { User } from "../types/userTypes";
+import type { UserSkill } from "../types/userSkillType";
 import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
