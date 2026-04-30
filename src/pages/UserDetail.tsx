@@ -108,9 +108,12 @@ export const UserDetail = () => {
               target="_blank"
               _hover={{ textDecoration: "none" }}
             >
-              <Button size="sm" variant="outline">
-                GitHub
-              </Button>
+              <img
+                src="/icons8-github-30.png"
+                alt="GitHubのアイコン"
+                width="32"
+                height="32"
+              />
             </Link>
           ) : null}
           {user.qiita_id ? (
@@ -119,9 +122,12 @@ export const UserDetail = () => {
               target="_blank"
               _hover={{ textDecoration: "none" }}
             >
-              <Button size="sm" variant="outline">
-                Qiita
-              </Button>
+              <img
+                src="/qiita-icon.png"
+                alt="Qiitaのアイコン"
+                width="32"
+                height="32"
+              />
             </Link>
           ) : null}
           {user.x_id ? (
@@ -130,9 +136,12 @@ export const UserDetail = () => {
               target="_blank"
               _hover={{ textDecoration: "none" }}
             >
-              <Button size="sm" variant="outline">
-                X
-              </Button>
+              <img
+                src="/icons8-x-50.png"
+                alt="Xのアイコン"
+                width="32"
+                height="32"
+              />
             </Link>
           ) : null}
         </Flex>
