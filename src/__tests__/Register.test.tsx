@@ -96,4 +96,24 @@ describe("Register", () => {
     await user.click(button);
     await waitFor(() => expect(mockedNavigator).toHaveBeenCalledWith("/"));
   });
+  it("好きな英単語を入力しないとエラーになる", async () => {
+    const user = userEvent.setup();
+    const nameInput = await screen.findByLabelText("名前：");
+    const descriptionInput = await screen.findByLabelText("自己紹介：");
+    const skillSelect = await screen.findByLabelText("好きな技術：");
+
+    fireEvent.change(nameInput, { target: { value: mockUser.name } });
+    fireEvent.change(descriptionInput, {
+      target: { value: mockUser.description },
+    });
+    await user.click(skillSelect);
+    await user.keyboard("[ArrowDown][Enter]");
+    await user.click(skillSelect);
+    await user.keyboard("[ArrowDown][ArrowDown][Enter]");
+
+    const button = await screen.findByText("登録");
+    await user.click(button);
+    const error = await screen.findByText("必須項目です");
+    expect(error).toBeInTheDocument();
+  });
 });
