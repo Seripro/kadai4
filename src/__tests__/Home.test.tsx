@@ -51,4 +51,10 @@ describe("Home", () => {
       expect(mockedNavigator).toHaveBeenCalledWith("/cards/apple"),
     );
   });
+  it("IDを入力せずにボタンを押すとエラーになる", async () => {
+    const button = await screen.findByText("表示する");
+    fireEvent.click(button);
+    const error = await screen.findByText("IDを入力して下さい");
+    expect(error).toBeInTheDocument();
+  });
 });
