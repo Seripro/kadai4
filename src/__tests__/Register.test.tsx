@@ -177,4 +177,21 @@ describe("Register", () => {
     const error = await screen.findByText("必須項目です");
     expect(error).toBeInTheDocument();
   });
+  it("好きな技術を入力しないとエラーになる", async () => {
+    const user = userEvent.setup();
+    const user_idInput = await screen.findByLabelText("好きな英単語：");
+    const nameInput = await screen.findByLabelText("名前：");
+    const descriptionInput = await screen.findByLabelText("自己紹介：");
+
+    fireEvent.change(user_idInput, { target: { value: mockUser.user_id } });
+    fireEvent.change(nameInput, { target: { value: mockUser.name } });
+    fireEvent.change(descriptionInput, {
+      target: { value: mockUser.description },
+    });
+
+    const button = await screen.findByText("登録");
+    await user.click(button);
+    const error = await screen.findByText("必須項目です");
+    expect(error).toBeInTheDocument();
+  });
 });
