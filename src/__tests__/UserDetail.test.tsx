@@ -53,4 +53,8 @@ describe("UserDetail", () => {
     expect(skill1).toBeInTheDocument();
     expect(skill2).toBeInTheDocument();
   });
+  it("GitHubのアイコンが表示されている", async () => {
+    const GitHubIcon = await screen.findByAltText("GitHubのアイコン");
+    expect(GitHubIcon).toBeInTheDocument();
+  });
 });
