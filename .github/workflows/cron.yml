@@ -1,0 +1,23 @@
+name: delete-user
+
+on:
+    schedule:
+        - cron: "0 6 * * *"
+    workflow_dispatch:
+
+jobs:
+    delete:
+        name: delete
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Setup Node.js and cache
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+            - name: Install dependencies
+              run: npm install
+            - name: Run delete file
+              run: npx ts-node --esm ./batch/index.ts
