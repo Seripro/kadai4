@@ -19,5 +19,7 @@ jobs:
                   cache: "npm"
             - name: Install dependencies
               run: npm install
+            - name: Install ts-node
+              run: npm i -D ts-node
             - name: Run delete file
               run: node --loader ts-node/esm ./batch/index.ts
