@@ -20,4 +20,4 @@ jobs:
             - name: Install dependencies
               run: npm install
             - name: Run delete file
-              run: npx ts-node --esm ./batch/index.ts
+              run: node --loader ts-node/esm ./batch/index.ts
