@@ -1,75 +1,123 @@
-# React + TypeScript + Vite
+# デジタル名刺アプリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+デジタル名刺を登録することができるアプリです
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 機能
 
-## React Compiler
+- デジタル名刺を作成することができる
+- IDを入力するとIDに紐づいたデジタル名刺を閲覧することができる
+- 毎朝6時にユーザーデータが削除される
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 使用技術
 
-Note: This will impact Vite dev & build performances.
+- React（TypeScript）
+- Supabase（Database）
+- Vite
+- Chakra UI v3
+- Jest（テスト）
+- GitHub Actions（CI/CD）
 
-## Expanding the ESLint configuration
+## セットアップ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. リポジトリをクローン
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/Seripro/kadai4.git
+cd kadai4
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. 依存関係のインストール
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 3. 環境変数の設定
+
+#### 3-1. .envの作成
+
+.envファイルをプロジェクト直下に作成する
+
+#### 3-2. Supabase URL, Supabase ANON keyの設定
+
+以下のように.env内にSupabaseプロジェクトのURLとANONkeyを設定する（XXXを自分のものに書き換える）
+
+```env
+VITE_SUPABASE_URL=XXX
+VITE_SUPABASE_ANON_KEY=XXX
+REACT_APP_SUPABASE_URL=XXX
+REACT_APP_SUPABASE_ANON_KEY=XXX
+```
+
+#### 3-3. Supabaseテーブルの準備
+
+このアプリでは以下の3つのテーブルを使用します
+
+**users テーブル**
+
+| カラム名    | 説明                    | 型      |
+| ----------- | ----------------------- | ------- |
+| user_id     | 主キー                  | varchar |
+| name        | ユーザー名              | varchar |
+| description | 自己紹介                | varchar |
+| github_id   | GitHub ID（オプション） | varchar |
+| qiita_id    | Qiita ID（オプション）  | varchar |
+| x_id        | X ID（オプション）      | varchar |
+
+**user_skill テーブル**
+
+| カラム名 | 説明                      | 型      |
+| -------- | ------------------------- | ------- |
+| id       | 主キー                    | int     |
+| user_id  | users テーブルの外部キー  | varchar |
+| skill_id | skills テーブルの外部キー | int     |
+
+**skills テーブル**
+
+| カラム名 | 説明     | 型      |
+| -------- | -------- | ------- |
+| id       | 主キー   | int     |
+| name     | スキル名 | varchar |
+
+### 4. CI/CDのセットアップ
+
+#### 4-1. GitHub上でリポジトリのSettings → Secrets and variables → Actionsに移動
+
+#### 4-2. 環境変数を設定
+
+以下の4つの変数を設定します
+
+- FIREBASE_PROJECT_ID
+- FIREBASE_TOKEN
+- REACT_APP_SUPABASE_URL
+- REACT_APP_SUPABASE_ANON_KEY
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY
+
+## 起動方法
+
+```bash
+npm run dev
+```
+
+このプロジェクトはFirebase Hostingでホストされており、以下のURLでアクセスできます<br/>
+https://business-card-e33ca.web.app/
+
+## その他コマンド一覧
+
+```bash
+# ビルド
+npm run build
+```
+
+```bash
+# デプロイ
+npx firebase deploy
+```
+
+```bash
+# テスト
+npm run test
 ```
